@@ -18,7 +18,7 @@ func TestFSType(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if fsInfo.fsType == "UNKNOWN" {
-		t.Error("Unexpected FSType", fsInfo.fsType)
+	if fsInfo.Type() == "UNKNOWN" {
+		t.Error("Unexpected FSType", fsInfo.Type())
 	}
 }

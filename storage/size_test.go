@@ -14,12 +14,7 @@ func TestFormatByte(t *testing.T) {
 }
 
 func TestFormat(t *testing.T) {
-	x, err := Format(1024, "OiB")
-	if err == nil {
-		t.Fatalf("Unexpected size unit: OiB")
-	}
-
-	x, err = Format(1.01234567890, "GiB")
+	x, err := Format(1.01234567890, "GiB")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -35,7 +30,21 @@ func TestFormat(t *testing.T) {
 
 	size = x.Round(5)
 	if size != 1.01235 {
-		t.Fatalf("Expected size: 1.01235, got:i %.5f", size)
+		t.Fatalf("Expected size: 1.01235, got: %.5f", size)
+	}
+
+	_, unit, err := x.Convert("B", 128, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if unit != "B" {
+		t.Fatalf("Expected unit: B, got: %s", unit)
+	}
+
+	_, _, err = x.Convert("OiB", 128, false)
+	if err == nil {
+		t.Fatalf("Unexpected size unit: OiB")
 	}
 }
 
