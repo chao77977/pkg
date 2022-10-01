@@ -42,3 +42,21 @@ func ParsePort(s string) (Port, error) {
 
 	return Port(p), nil
 }
+
+// s = host[:port]
+func ValidPort(s string) bool {
+	if s == "" {
+		return true
+	}
+
+	p := s[:]
+	if s[0] == ':' {
+		p = s[1:]
+	}
+
+	if _, err := ParsePort(p); err != nil {
+		return true
+	}
+
+	return false
+}
