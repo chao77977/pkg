@@ -1,3 +1,3 @@
-module pkg
+module github.com/chao77977/pkg
 
-go 1.14
+go 1.20
